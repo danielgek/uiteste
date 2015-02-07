@@ -1,6 +1,7 @@
 package com.danielgek.moobiuitest;
 
 import android.content.res.Configuration;
+import android.graphics.Color;
 import android.graphics.drawable.Drawable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -54,6 +55,14 @@ public class MainActivity extends ActionBarActivity {
         mSlidingTabLayout = (SlidingTabLayout) findViewById(R.id.sliding_tabs);
         mSlidingTabLayout.setCustomTabView(R.layout.custom_tab,0);
         mSlidingTabLayout.setDistributeEvenly(true);
+        mSlidingTabLayout.setBackgroundColor(getResources().getColor(R.color.colorPrimary));
+        mSlidingTabLayout.setSelectedIndicatorColors(getResources().getColor(R.color.colorAccent));
+        mSlidingTabLayout.setCustomTabColorizer(new SlidingTabLayout.TabColorizer() {
+            @Override
+            public int getIndicatorColor(int position) {
+                return Color.WHITE;
+            }
+        });
         mSlidingTabLayout.setViewPager(mViewPager);
 
 
