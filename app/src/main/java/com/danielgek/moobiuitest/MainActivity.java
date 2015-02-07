@@ -1,17 +1,19 @@
 package com.danielgek.moobiuitest;
 
 import android.content.res.Configuration;
+import android.graphics.drawable.Drawable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentStatePagerAdapter;
-import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.ImageSpan;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -42,17 +44,18 @@ public class MainActivity extends ActionBarActivity {
 
             toolbar.setTitle("Navigation Drawer");
             setSupportActionBar(toolbar);
+            getSupportActionBar().setDisplayShowHomeEnabled(true);
 
         }
 
         mViewPager = (ViewPager) findViewById(R.id.viewpager);
-
-        FragmentManager fragmentManager = getSupportFragmentManager();
-
-        mViewPager.setAdapter(new SamplePagerAdapter(fragmentManager));
+        mViewPager.setAdapter(new SamplePagerAdapter(getSupportFragmentManager()));
 
         mSlidingTabLayout = (SlidingTabLayout) findViewById(R.id.sliding_tabs);
+        mSlidingTabLayout.setCustomTabView(R.layout.custom_tab,0);
+        mSlidingTabLayout.setDistributeEvenly(true);
         mSlidingTabLayout.setViewPager(mViewPager);
+
 
         drawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         //drawerLayout.setStatusBarBackgroundColor(getResources().getColor(R.color.colorAccent));
@@ -111,6 +114,14 @@ public class MainActivity extends ActionBarActivity {
 
     class SamplePagerAdapter extends FragmentStatePagerAdapter {
 
+        private int[] iconDrwableId = {
+                R.drawable.tab_bus,
+                R.drawable.tab_bycicle,
+                R.drawable.tab_car,
+                R.drawable.tab_home,
+                R.drawable.tab_train
+        };
+
         public SamplePagerAdapter(FragmentManager fm) {
             super(fm);
         }
@@ -126,7 +137,14 @@ public class MainActivity extends ActionBarActivity {
 
         @Override
         public CharSequence getPageTitle(int position) {
-            return "Item " + (position + 1);
+            // Generate title based on item position
+            // return tabTitles[position];
+            Drawable image = getResources().getDrawable(iconDrwableId[position]);
+            image.setBounds(0, 0, image.getIntrinsicWidth(), image.getIntrinsicHeight());
+            SpannableString sb = new SpannableString(" ");
+            ImageSpan imageSpan = new ImageSpan(image, ImageSpan.ALIGN_BOTTOM);
+            sb.setSpan(imageSpan, 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            return sb;
         }
 
 
