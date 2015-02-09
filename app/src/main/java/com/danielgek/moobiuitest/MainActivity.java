@@ -18,6 +18,7 @@ import android.text.style.ImageSpan;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 
 import com.danielgek.moobiuitest.fragments.Fragment1;
 import com.danielgek.moobiuitest.fragments.Fragment2;
@@ -44,7 +45,7 @@ public class MainActivity extends ActionBarActivity {
         if(toolbar != null){
 
             toolbar.setTitle("MOOBI");
-            toolbar.setSubtitle("Coimbra");
+            //toolbar.setSubtitle("Coimbra");
             setSupportActionBar(toolbar);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
 
@@ -80,6 +81,15 @@ public class MainActivity extends ActionBarActivity {
             }
         };
         drawerLayout.setDrawerListener(drawerToggle);
+
+        TextView temperature = (TextView) findViewById(R.id.temp_text);
+        Drawable image = getResources().getDrawable(R.drawable.tab_bus);
+        image.setBounds(0, 0, image.getIntrinsicWidth(), image.getIntrinsicHeight());
+        SpannableString sb = new SpannableString("15 / ");
+        ImageSpan imageSpan = new ImageSpan(image, ImageSpan.ALIGN_BOTTOM);
+        sb.setSpan(imageSpan, 4, 5, Spannable.SPAN_INCLUSIVE_EXCLUSIVE);
+        temperature.setText("15 / ");
+
 
 
 
