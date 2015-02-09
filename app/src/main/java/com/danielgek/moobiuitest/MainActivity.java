@@ -43,7 +43,8 @@ public class MainActivity extends ActionBarActivity {
 
         if(toolbar != null){
 
-            toolbar.setTitle("Navigation Drawer");
+            toolbar.setTitle("MOOBI");
+            toolbar.setSubtitle("Coimbra");
             setSupportActionBar(toolbar);
             getSupportActionBar().setDisplayShowHomeEnabled(true);
 
